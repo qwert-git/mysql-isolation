@@ -1,0 +1,20 @@
+The projects goal is to reproduce famous DBMS data phenomena.
+
+Results:
+
+Percona
+                    "DIRTY READ"  "NON REPEATABLE" "PHANTOM READ" "LOST UPDATE"
+READ UNCOMMITED         +               +               +              -?
+READ COMMITED           -               +               +              -?
+REPEATABLE READ         -               -               -              -
+SERIALIZABLE            -               -               -              - 
+
+// All but SERIALIZABLE - The second transaction was locked for updated and waits for release of the first one;
+// SERIALIZABLE - update not imposible while two transaction; Second update throws exception;
+
+Postgres
+                    "DIRTY READ"  "NON REPEATABLE" "PHANTOM READ" "LOST UPDATE"
+READ UNCOMMITED         -               +               +              -?
+READ COMMITED           -               +               +              -?
+REPEATABLE READ         -               -               -              -
+SERIALIZABLE            -               -               -              - 
